@@ -31,8 +31,8 @@ app_path = os.path.dirname(os.path.abspath(__file__))
 
 tdjson_path = None
 
-if (os.path.isfile(app_path + "/tdjson.so")):
-    tdjson_path = app_path+"/tdjson.so"
+# if (os.path.isfile(app_path + "/tdjson.so")):
+tdjson_path = app_path+"/tdjson.so"
 
 # check existing dependencies
 if tdjson_path is None:
@@ -316,7 +316,7 @@ def except_exit_func():
     # run_mode = None
     # use_mode = None
 
-run_mode = '1' # input("\nPlease select Run Mode:\n'1' -> Always ON\n'9' -> Auto OFF : ")
+    #run_mode = '1' input("\nPlease select Run Mode:\n'1' -> Always ON\n'9' -> Auto OFF : ")
     # while (run_mode not in ['1','9']):
     #     run_mode = input("Please select Valid Value for Run Mode: ")
     
