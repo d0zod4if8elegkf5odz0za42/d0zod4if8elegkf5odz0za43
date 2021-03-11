@@ -100,7 +100,7 @@ try:
         if((first_work_loop == 0) and (now_hour != work_time)):
             time.sleep(82800)
         elif (first_work_loop == 1):
-            if ((now_hour == (work_time-1)) and ((now_minute <= 59) and (now_minute >= 46))):
+            if ((now_hour == (work_time-1)) and ((now_minute <= 59) and (now_minute >= 45))):
                 first_work_loop = 0
             if (( now_hour != work_time)):
                 time.sleep(900)
