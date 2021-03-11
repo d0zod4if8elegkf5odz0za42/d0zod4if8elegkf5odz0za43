@@ -1,10 +1,10 @@
 from ctypes.util import find_library
 from ctypes import CDLL, c_int, c_char_p, c_double, CFUNCTYPE
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import json
 import sys
 import time
-import pytz
 import os.path
 app_path = os.path.dirname(os.path.abspath(__file__))
 tdjson_path = None
@@ -66,7 +66,7 @@ work_time = 3
 first_work_cycle = 1
 try:
     while True:
-        now_time = datetime.strptime(((datetime.now(pytz.timezone('Asia/Tehran'))).strftime('%H:%M')), "%H:%M")
+        now_time = (datetime.strptime(((datetime.now(ZoneInfo("Asia/Tehran"))).strftime('%H:%M')), "%H:%M"))
         now_hour = int(now_time.hour)
         now_minute = int(now_time.minute)
         if( now_hour == work_time):
