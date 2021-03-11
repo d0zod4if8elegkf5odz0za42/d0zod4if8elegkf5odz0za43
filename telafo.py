@@ -3,6 +3,7 @@ from ctypes import CDLL, c_int, c_char_p, c_double, CFUNCTYPE
 import json
 import sys
 import time
+import pytz
 import datetime
 import os.path
 app_path = os.path.dirname(os.path.abspath(__file__))
@@ -51,7 +52,6 @@ td_execute({'@type': 'getTextEntities', 'text': '@telegram /test_command https:/
 td_send({'@type': 'getAuthorizationState', '@extra': 1.01234})
 base_message_id = 0
 message_id = 0
-forward_counter = 0
 reset_timer_controller = 1
 original_base_time = datetime.datetime.now().minute
 def except_exit_func():
@@ -59,51 +59,64 @@ def except_exit_func():
         sys.exit(0)
     except SystemExit:
         os._exit(0)
-use_mode = '9'
+
+
 my_api_id = "2260209"
 my_api_hash = "4e8a9b32d5380f6d612397402bfa99bb"
 my_chat_id = "-1001178726847"
+work_time = 3
+first_work_loop = 1
+
+
 try:
     while True:
-        event = td_receive()
-        time.sleep(0.3)
-        if event:
-            if event['@type'] == 'updateAuthorizationState':
-                auth_state = event['authorization_state']
-                if auth_state['@type'] == 'authorizationStateClosed':
-                    break
-                if auth_state['@type'] == 'authorizationStateWaitTdlibParameters':
-                    td_send({'@type': 'setTdlibParameters', 'parameters': {
-                                                        'database_directory': 'tdlib',
-                                                        'use_message_database': True,
-                                                        'use_secret_chats': True,
-                                                        'api_id': my_api_id,
-                                                        'api_hash': my_api_hash,
-                                                        'system_language_code': 'en',
-                                                        'device_model': 'Desktop',
-                                                        'application_version': '1.0',
-                                                        'enable_storage_optimizer': True}})
-                if auth_state['@type'] == 'authorizationStateWaitEncryptionKey':
-                    td_send({'@type': 'checkDatabaseEncryptionKey', 'encryption_key': ''})
-            if (use_mode == '9'):
-                new_time = datetime.datetime.now().minute
-                if (forward_counter < 2000):
-                    if (event['@type']=='updateNewMessage'):
-                        chat_id = str(event['message']['chat_id'])
-                        message_id = event['message']['id']
-                        if (chat_id != my_chat_id):
-                            base_message_id = message_id
-                            td_send({'@type': 'forwardMessages', 'chat_id': my_chat_id, 'from_chat_id': chat_id, 'message_ids': [message_id] })
-                            td_send({'@type': 'viewMessages', 'chat_id': chat_id, 'message_thread_id': 0, 'message_ids': [message_id], 'force_read': 1 })
-                            forward_counter += 1                        
-                if (forward_counter >= 2000):
-                    time.sleep(3900)
-                    original_base_time = datetime.datetime.now().minute
-                    forward_counter = 0
-                if (((original_base_time - 1) == new_time) and (reset_timer_controller == 1)):
-                    forward_counter = 0
-                    reset_timer_controller = 0
-                if (((original_base_time) == new_time) and (reset_timer_controller == 0)):
-                    reset_timer_controller = 1
+
+    	now_time = datetime.strptime(((datetime.now(pytz.timezone('Asia/Tehran'))).strftime('%H:%M')), "%H:%M")
+
+		now_hour = int(now_time.hour)
+		now_minute = int(now_time.minute)
+
+    	if( now_hour == work_time):
+
+	        event = td_receive()
+	        time.sleep(0.3)
+	        if event:
+	            if event['@type'] == 'updateAuthorizationState':
+	                auth_state = event['authorization_state']
+	                if auth_state['@type'] == 'authorizationStateClosed':
+	                    break
+	                if auth_state['@type'] == 'authorizationStateWaitTdlibParameters':
+	                    td_send({'@type': 'setTdlibParameters', 'parameters': {
+	                                                        'database_directory': 'tdlib',
+	                                                        'use_message_database': True,
+	                                                        'use_secret_chats': True,
+	                                                        'api_id': my_api_id,
+	                                                        'api_hash': my_api_hash,
+	                                                        'system_language_code': 'en',
+	                                                        'device_model': 'Desktop',
+	                                                        'application_version': '1.0',
+	                                                        'enable_storage_optimizer': True}})
+	                if auth_state['@type'] == 'authorizationStateWaitEncryptionKey':
+	                    td_send({'@type': 'checkDatabaseEncryptionKey', 'encryption_key': ''})
+
+	            if (event['@type']=='updateNewMessage'):
+	                chat_id = str(event['message']['chat_id'])
+	                message_id = event['message']['id']
+	                if (chat_id != my_chat_id):
+	                    base_message_id = message_id
+	                    td_send({'@type': 'forwardMessages', 'chat_id': my_chat_id, 'from_chat_id': chat_id, 'message_ids': [message_id] })
+	                    td_send({'@type': 'viewMessages', 'chat_id': chat_id, 'message_thread_id': 0, 'message_ids': [message_id], 'force_read': 1 })
+
+	    if (first_work_loop == 1):
+
+	    	if ((now_hour == (work_time-1)) and ((now_minute < 59) and (now_minute >= 45))):
+	    		first_work_loop = 0
+
+        	if (( now_hour < 3) or (now_hour > 3)):
+        		time.sleep(900)
+        		print ("sleep")
+
+
+
 except (KeyboardInterrupt):
     except_exit_func()
