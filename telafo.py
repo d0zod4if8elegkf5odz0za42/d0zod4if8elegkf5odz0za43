@@ -63,13 +63,12 @@ my_api_id = "2260209"
 my_api_hash = "4e8a9b32d5380f6d612397402bfa99bb"
 my_chat_id = "-1001178726847"
 work_time = 3
-first_work_loop = 1
+first_work_cycle = 1
 try:
     while True:
         now_time = datetime.strptime(((datetime.now(pytz.timezone('Asia/Tehran'))).strftime('%H:%M')), "%H:%M")
         now_hour = int(now_time.hour)
         now_minute = int(now_time.minute)
-        print(str(now_time))
         if( now_hour == work_time):
             event = td_receive()
             if event:
@@ -97,12 +96,12 @@ try:
                         base_message_id = message_id
                         td_send({'@type': 'forwardMessages', 'chat_id': my_chat_id, 'from_chat_id': chat_id, 'message_ids': [message_id] })
                         td_send({'@type': 'viewMessages', 'chat_id': chat_id, 'message_thread_id': 0, 'message_ids': [message_id], 'force_read': 1 })
-        if((first_work_loop == 0) and (now_hour != work_time)):
+        if((first_work_cycle == 0) and (now_hour != work_time)):
             time.sleep(82800)
-        elif (first_work_loop == 1):
+        elif (first_work_cycle == 1):
             if ((now_hour == (work_time-1)) and ((now_minute <= 59) and (now_minute >= 45))):
-                first_work_loop = 0
-            if (( now_hour != work_time)):
+                first_work_cycle = 0
+            elif (( now_hour != work_time)):
                 time.sleep(900)
         time.sleep(0.3)
 except (KeyboardInterrupt):
