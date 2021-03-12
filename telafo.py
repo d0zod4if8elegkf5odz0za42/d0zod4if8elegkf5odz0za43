@@ -67,7 +67,6 @@ first_work_cycle = 1
 try:
     while True:
         now_time = (datetime.strptime(((datetime.now(ZoneInfo("Asia/Tehran"))).strftime('%H:%M')), "%H:%M"))
-        print(str(now_time))
         now_hour = int(now_time.hour)
         now_minute = int(now_time.minute)
         if( now_hour == work_time):
