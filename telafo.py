@@ -96,13 +96,8 @@ try:
                         base_message_id = message_id
                         td_send({'@type': 'forwardMessages', 'chat_id': my_chat_id, 'from_chat_id': chat_id, 'message_ids': [message_id] })
                         td_send({'@type': 'viewMessages', 'chat_id': chat_id, 'message_thread_id': 0, 'message_ids': [message_id], 'force_read': 1 })
-        if((first_work_cycle == 0) and (now_hour != work_time)):
-            time.sleep(82800)
-        elif (first_work_cycle == 1):
-            if ((now_hour == (work_time-1)) and ((now_minute <= 59) and (now_minute >= 45))):
-                first_work_cycle = 0
-            elif (( now_hour != work_time)):
-                time.sleep(900)
+        elif (( now_hour != work_time)):
+            time.sleep(900)
         time.sleep(0.3)
 except (KeyboardInterrupt):
     except_exit_func()
