@@ -97,7 +97,7 @@ try:
                         td_send({'@type': 'forwardMessages', 'chat_id': my_chat_id, 'from_chat_id': chat_id, 'message_ids': [message_id] })
                         td_send({'@type': 'viewMessages', 'chat_id': chat_id, 'message_thread_id': 0, 'message_ids': [message_id], 'force_read': 1 })
         elif (( now_hour != work_time)):
-            time.sleep(900)
+            time.sleep(1500)
         time.sleep(0.3)
 except (KeyboardInterrupt):
     except_exit_func()
