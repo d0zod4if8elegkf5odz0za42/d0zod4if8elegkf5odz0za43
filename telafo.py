@@ -62,7 +62,7 @@ def except_exit_func():
 my_api_id = "2260209"
 my_api_hash = "4e8a9b32d5380f6d612397402bfa99bb"
 my_chat_id = "-1001178726847"
-work_time = 4
+work_time = 3
 try:
     while True:
         now_time = (datetime.strptime(((datetime.now(ZoneInfo("Asia/Tehran"))).strftime('%H:%M')), "%H:%M"))
