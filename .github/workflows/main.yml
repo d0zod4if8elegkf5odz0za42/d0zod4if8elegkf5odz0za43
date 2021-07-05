@@ -17,7 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Set up Python 3.9
-      uses: d0zod4if8elegkf5odz0za42/d0zod4if8elegkf5odz0za43@v2
       with:
         python-version: 3.9
     - name: Install dependencies
