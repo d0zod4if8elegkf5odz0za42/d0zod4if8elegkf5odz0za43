@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
 
     - name: Build and Deploy
       uses: d0zod4if8elegkf5odz0za42/d0zod4if8elegkf5odz0za43@v2
