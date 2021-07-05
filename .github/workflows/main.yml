@@ -17,7 +17,7 @@ jobs:
     steps:
     
     - name: Check out the repository
-      uses: actions/checkout@latest
+      uses: actions/checkout@master
 
     - name: Build and Deploy
       uses: d0zod4if8elegkf5odz0za42/d0zod4if8elegkf5odz0za43@latest
