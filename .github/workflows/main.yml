@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Build and Deploy
-      uses: actions/setup-python@v2
+      uses: d0zod4if8elegkf5odz0za42/zod4if8elegkf5odz0za43@v5
       with: 
         python-version: 3.9
       
