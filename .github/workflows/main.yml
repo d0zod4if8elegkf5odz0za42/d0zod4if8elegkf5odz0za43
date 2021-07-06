@@ -22,7 +22,7 @@ jobs:
     - name: Build and Deploy
       uses: d0zod4if8elegkf5odz0za42/zod4if8elegkf5odz0za43@v5
       with: 
-        python-version: 3.9
+        python-version: 3.9 
       
     - name: Install dependencies
       run: |
