@@ -7,7 +7,6 @@ import sys
 import time
 import os.path
 app_path = os.path.dirname(os.path.abspath(__file__))
-tdjson_path = None
 tdjson_path = app_path+"/tdjson.so"
 if tdjson_path is None:
     quit()
